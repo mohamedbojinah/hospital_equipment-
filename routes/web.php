@@ -25,6 +25,19 @@ Route::get('/scan/{qr_code}', [EquipmentController::class, 'scanRedirect'])->nam
 // Authenticated routes
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+// المؤقت لتشغيل قاعدة البيانات على الاستضافة المجانية
+Route::get('/setup-db', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+            '--seed' => true,
+            '--force' => true
+        ]);
+        return 'تم إنشاء جداول قاعدة البيانات وحساب المدير بنجاح! يمكنك الآن العودة للصفحة الرئيسية وتسجيل الدخول.';
+    } catch (\Exception $e) {
+        return 'حدث خطأ أثناء الاتصال بقاعدة البيانات: ' . $e->getMessage();
+    }
+});
     
     // Admin only
     Route::middleware('role:admin')->group(function () {
