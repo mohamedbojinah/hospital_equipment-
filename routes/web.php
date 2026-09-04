@@ -33,9 +33,20 @@ Route::get('/setup-db', function() {
             '--seed' => true,
             '--force' => true
         ]);
-        return 'تم إنشاء جداول قاعدة البيانات وحساب المدير بنجاح! يمكنك الآن العودة للصفحة الرئيسية وتسجيل الدخول.';
+        return 'تم تهيئة قاعدة البيانات بالكامل (Fresh).';
     } catch (\Exception $e) {
-        return 'حدث خطأ أثناء الاتصال بقاعدة البيانات: ' . $e->getMessage();
+        return 'حدث خطأ: ' . $e->getMessage();
+    }
+});
+
+Route::get('/migrate-only', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', [
+            '--force' => true
+        ]);
+        return 'تم تحديث قاعدة البيانات بنجاح (بدون حذف البيانات السابقة)!';
+    } catch (\Exception $e) {
+        return 'حدث خطأ: ' . $e->getMessage();
     }
 });
     
