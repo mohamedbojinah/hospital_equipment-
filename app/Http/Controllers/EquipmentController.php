@@ -40,7 +40,21 @@ class EquipmentController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_expiry' => 'nullable|date',
             'notes' => 'nullable|string',
+            'manufacturer' => 'nullable|string',
+            'model_number' => 'nullable|string',
+            'supplier' => 'nullable|string',
+            'purchase_price' => 'nullable|numeric',
+            'invoice_number' => 'nullable|string',
+            'expected_life_span' => 'nullable|integer',
+            'operating_hours' => 'nullable|integer',
+            'risk_level' => 'nullable|in:low,medium,high',
+            'operating_date' => 'nullable|date',
+            'manual_file' => 'nullable|file|mimes:pdf|max:10240', // 10MB max
         ]);
+
+        if ($request->hasFile('manual_file')) {
+            $validated['manual_file_path'] = $request->file('manual_file')->store('manuals', 'public');
+        }
 
         $validated['created_by'] = auth()->id();
         $validated['qr_code'] = Str::uuid()->toString();
@@ -76,7 +90,21 @@ class EquipmentController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_expiry' => 'nullable|date',
             'notes' => 'nullable|string',
+            'manufacturer' => 'nullable|string',
+            'model_number' => 'nullable|string',
+            'supplier' => 'nullable|string',
+            'purchase_price' => 'nullable|numeric',
+            'invoice_number' => 'nullable|string',
+            'expected_life_span' => 'nullable|integer',
+            'operating_hours' => 'nullable|integer',
+            'risk_level' => 'nullable|in:low,medium,high',
+            'operating_date' => 'nullable|date',
+            'manual_file' => 'nullable|file|mimes:pdf|max:10240',
         ]);
+
+        if ($request->hasFile('manual_file')) {
+            $validated['manual_file_path'] = $request->file('manual_file')->store('manuals', 'public');
+        }
 
         $equipment->update($validated);
 

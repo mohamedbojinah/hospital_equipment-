@@ -40,8 +40,26 @@
                 @endif
                 
                 <li>
-                    <a href="{{ route('maintenance.index') }}" class="nav-item {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
+                    <a href="{{ route('maintenance.index') }}" class="nav-item {{ request()->routeIs('maintenance.index') || request()->routeIs('maintenance.show') ? 'active' : '' }}">
                         <i class="fa-solid fa-screwdriver-wrench"></i> سجلات الصيانة
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="{{ route('maintenance.calendar') }}" class="nav-item {{ request()->routeIs('maintenance.calendar') ? 'active' : '' }}">
+                        <i class="fa-regular fa-calendar-days"></i> جدول الصيانة (PPM)
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('tickets.index') }}" class="nav-item {{ request()->routeIs('tickets.*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-triangle-exclamation"></i> نظام التذاكر
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('quotations.index') }}" class="nav-item {{ request()->routeIs('quotations.*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-file-invoice-dollar"></i> عروض الأسعار
                     </a>
                 </li>
                 

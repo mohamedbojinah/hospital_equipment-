@@ -20,6 +20,8 @@ class MaintenanceRecord extends Model
         'next_maintenance_date',
         'started_at',
         'completed_at',
+        'engineer_report',
+        'spare_parts_changed',
     ];
 
     protected $casts = [

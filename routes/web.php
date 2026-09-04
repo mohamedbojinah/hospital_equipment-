@@ -7,6 +7,8 @@ use App\Http\Controllers\EquipmentTypeController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +53,7 @@ Route::middleware('auth')->group(function () {
     // All authenticated users
     Route::post('maintenance', [MaintenanceController::class, 'store']);
     Route::get('maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
+    Route::get('maintenance/calendar', [MaintenanceController::class, 'calendar'])->name('maintenance.calendar');
     Route::get('maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
     Route::get('maintenance/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance.show');
     Route::get('maintenance/{equipment_id}/history', [MaintenanceController::class, 'history']);
@@ -58,4 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::patch('notifications/{id}/read', [NotificationController::class, 'markRead']);
     Route::post('notifications/read-all', [NotificationController::class, 'markAllRead']);
+    
+    // Tickets & Quotations
+    Route::resource('tickets', TicketController::class);
+    Route::resource('quotations', QuotationController::class);
+    Route::patch('quotations/{quotation}/approve', [QuotationController::class, 'approve'])->name('quotations.approve');
 });

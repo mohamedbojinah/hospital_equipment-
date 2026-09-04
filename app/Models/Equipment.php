@@ -21,11 +21,22 @@ class Equipment extends Model
         'qr_code',
         'notes',
         'created_by',
+        'manufacturer',
+        'model_number',
+        'supplier',
+        'purchase_price',
+        'invoice_number',
+        'expected_life_span',
+        'operating_hours',
+        'risk_level',
+        'operating_date',
+        'manual_file_path',
     ];
 
     protected $casts = [
         'purchase_date' => 'date',
         'warranty_expiry' => 'date',
+        'operating_date' => 'date',
     ];
 
     public function type()
@@ -46,5 +57,15 @@ class Equipment extends Model
     public function schedules()
     {
         return $this->hasMany(MaintenanceSchedule::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function quotations()
+    {
+        return $this->hasMany(Quotation::class);
     }
 }

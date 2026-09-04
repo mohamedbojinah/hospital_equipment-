@@ -32,6 +32,8 @@ class MaintenanceController extends Controller
             'description' => 'required|string',
             'cost' => 'nullable|numeric|min:0',
             'next_maintenance_date' => 'nullable|date|after:today',
+            'engineer_report' => 'nullable|string',
+            'spare_parts_changed' => 'nullable|string',
         ]);
 
         $validated['performed_by'] = auth()->id();
@@ -59,20 +61,46 @@ class MaintenanceController extends Controller
         
         $validated = $request->validate([
             'status' => 'required|in:approved,completed',
-            'notes' => 'nullable|string',
+            'engineer_report' => 'nullable|string',
+            'spare_parts_changed' => 'nullable|string',
+            'cost' => 'nullable|numeric|min:0',
         ]);
 
-        $record->update([
+        $updateData = [
             'status' => $validated['status'],
             'approved_by' => auth()->id(),
             'completed_at' => $validated['status'] == 'completed' ? now() : null,
-        ]);
+        ];
+        
+        if (isset($validated['engineer_report'])) $updateData['engineer_report'] = $validated['engineer_report'];
+        if (isset($validated['spare_parts_changed'])) $updateData['spare_parts_changed'] = $validated['spare_parts_changed'];
+        if (isset($validated['cost'])) $updateData['cost'] = $validated['cost'];
+
+        $record->update($updateData);
         
         if ($validated['status'] == 'completed' || $validated['status'] == 'approved') {
             $record->equipment->update(['status' => 'active']);
         }
 
         return back()->with('success', 'تم تحديث حالة الصيانة بنجاح.');
+    }
+
+    public function calendar()
+    {
+        $events = MaintenanceRecord::with('equipment')
+            ->whereNotNull('next_maintenance_date')
+            ->get()
+            ->map(function($record) {
+                return [
+                    'title' => 'PPM: ' . ($record->equipment->name ?? 'محذوف'),
+                    'start' => $record->next_maintenance_date,
+                    'url' => route('maintenance.create', ['equipment_id' => $record->equipment_id]),
+                    'backgroundColor' => '#f59e0b',
+                    'borderColor' => '#d97706'
+                ];
+            });
+            
+        return view('maintenance.calendar', compact('events'));
     }
 
     public function history($equipment_id)

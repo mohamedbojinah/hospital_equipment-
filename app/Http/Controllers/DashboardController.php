@@ -28,11 +28,21 @@ class DashboardController extends Controller
             'total_equipment' => Equipment::count(),
             'active_equipment' => Equipment::where('status', 'active')->count(),
             'maintenance_equipment' => Equipment::where('status', 'maintenance')->count(),
+            'inactive_equipment' => Equipment::where('status', 'inactive')->count(),
         ];
+        
+        $departments = Equipment::selectRaw('department, count(*) as count')->groupBy('department')->get();
+        
+        $topCostEquipment = MaintenanceRecord::selectRaw('equipment_id, sum(cost) as total_cost')
+            ->groupBy('equipment_id')
+            ->orderByDesc('total_cost')
+            ->take(5)
+            ->with('equipment')
+            ->get();
         
         $recentMaintenance = MaintenanceRecord::with('equipment', 'performer')->latest()->take(5)->get();
         
-        return view('dashboard.admin', compact('stats', 'recentMaintenance'));
+        return view('dashboard.admin', compact('stats', 'departments', 'topCostEquipment', 'recentMaintenance'));
     }
 
     private function supervisorDashboard()
