@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'تاريخ الصيانة')
-@section('header', 'تاريخ صيانة الآلة: ' . $equipment->name)
+@section('header', 'تاريخ صيانة الجهاز: ' . $equipment->name)
 
 @section('content')
 <div class="card">
@@ -22,7 +22,7 @@
                     <th>تاريخ الانتهاء</th>
                     <th>القائم بالصيانة</th>
                     <th>التكلفة</th>
-                    <th>الحالة</th>
+                    <th>الحجهاز</th>
                     <th>إجراء</th>
                 </tr>
             </thead>
@@ -51,7 +51,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center">لا توجد سجلات صيانة لهذه الآلة.</td>
+                    <td colspan="8" class="text-center">لا توجد سجلات صيانة لهذه الجهاز.</td>
                 </tr>
                 @endforelse
             </tbody>

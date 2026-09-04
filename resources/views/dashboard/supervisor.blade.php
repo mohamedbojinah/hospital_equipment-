@@ -6,7 +6,7 @@
 @section('content')
 <div class="grid grid-cols-2">
     <div class="card" style="border-right: 4px solid var(--primary-color);">
-        <h4 style="color: var(--text-muted); font-size: 0.9rem;">إجمالي الآلات</h4>
+        <h4 style="color: var(--text-muted); font-size: 0.9rem;">إجمالي الأجهزة</h4>
         <div style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">{{ $stats['total_equipment'] }}</div>
     </div>
     
@@ -25,7 +25,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>الآلة</th>
+                    <th>الجهاز</th>
                     <th>نوع الصيانة</th>
                     <th>القائم بالصيانة</th>
                     <th>التاريخ</th>

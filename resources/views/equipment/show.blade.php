@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'تفاصيل الآلة')
-@section('header', 'تفاصيل الآلة: ' . $equipment->name)
+@section('title', 'تفاصيل الجهاز')
+@section('header', 'تفاصيل الجهاز: ' . $equipment->name)
 
 @section('content')
 <div class="grid grid-cols-2" style="margin-bottom: 2rem; gap: 2rem;">
@@ -79,7 +79,7 @@
             <i class="fa-solid fa-qrcode"></i> عرض QR Code
         </a>
         <a href="{{ route('equipment.edit', $equipment) }}" class="btn btn-warning" style="background: var(--warning-light); color: #b45309; border:none;">
-            <i class="fa-solid fa-edit"></i> تعديل بيانات الآلة
+            <i class="fa-solid fa-edit"></i> تعديل بيانات الجهاز
         </a>
         <a href="{{ route('maintenance.create', ['equipment_id' => $equipment->id]) }}" class="btn btn-secondary">
             <i class="fa-solid fa-screwdriver-wrench"></i> طلب صيانة جديدة

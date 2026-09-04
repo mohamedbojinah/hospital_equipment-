@@ -31,7 +31,7 @@
 
     <div style="display: flex; flex-direction: column; gap: 1rem;">
         <a href="{{ route('equipment.show', $equipment) }}" class="btn btn-primary" style="width: 100%;">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> إدارة الآلة بالكامل (المدير)
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> إدارة الجهاز بالكامل (المدير)
         </a>
         
         <a href="{{ route('maintenance.create', ['equipment_id' => $equipment->id]) }}" class="btn btn-secondary" style="width: 100%;">

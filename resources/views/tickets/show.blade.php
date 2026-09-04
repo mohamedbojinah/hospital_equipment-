@@ -65,7 +65,7 @@
             
             <div class="grid grid-cols-2">
                 <div class="form-group">
-                    <label for="status" class="form-label">تحديث الحالة</label>
+                    <label for="status" class="form-label">تحديث الحجهاز</label>
                     <select name="status" id="status" class="form-control" required>
                         <option value="open" {{ $ticket->status == 'open' ? 'selected' : '' }}>مفتوحة</option>
                         <option value="in_progress" {{ $ticket->status == 'in_progress' ? 'selected' : '' }}>قيد المعالجة (جاري العمل عليها)</option>

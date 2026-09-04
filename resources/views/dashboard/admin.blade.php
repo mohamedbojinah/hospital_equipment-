@@ -13,17 +13,17 @@
     </div>
     
     <div class="card" style="border-right: 4px solid var(--secondary-color);">
-        <h4 style="color: var(--text-muted); font-size: 0.9rem;">إجمالي الآلات</h4>
+        <h4 style="color: var(--text-muted); font-size: 0.9rem;">إجمالي الأجهزة</h4>
         <div style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">{{ $stats['total_equipment'] }}</div>
     </div>
     
     <div class="card" style="border-right: 4px solid var(--secondary-dark);">
-        <h4 style="color: var(--text-muted); font-size: 0.9rem;">الآلات النشطة</h4>
+        <h4 style="color: var(--text-muted); font-size: 0.9rem;">الأجهزة النشطة</h4>
         <div style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--secondary-dark);">{{ $stats['active_equipment'] }}</div>
     </div>
     
     <div class="card" style="border-right: 4px solid var(--warning-color);">
-        <h4 style="color: var(--text-muted); font-size: 0.9rem;">آلات في الصيانة</h4>
+        <h4 style="color: var(--text-muted); font-size: 0.9rem;">أجهزة في الصيانة</h4>
         <div style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--warning-color);">{{ $stats['maintenance_equipment'] }}</div>
     </div>
 </div>
@@ -32,7 +32,7 @@
     <!-- Equipment Status Donut Chart -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">حالة الأجهزة</h3>
+            <h3 class="card-title">حجهاز الأجهزة</h3>
         </div>
         <div style="height: 300px; display: flex; justify-content: center;">
             <canvas id="statusChart"></canvas>
@@ -60,7 +60,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>الآلة</th>
+                        <th>الجهاز</th>
                         <th>الرقم التسلسلي</th>
                         <th>التكلفة الإجمالية</th>
                     </tr>
@@ -93,9 +93,9 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>الآلة</th>
+                        <th>الجهاز</th>
                         <th>القائم بالصيانة</th>
-                        <th>الحالة</th>
+                        <th>الحجهاز</th>
                     </tr>
                 </thead>
                 <tbody>

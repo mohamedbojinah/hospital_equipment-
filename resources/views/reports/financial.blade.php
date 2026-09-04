@@ -24,7 +24,7 @@
                 <thead>
                     <tr>
                         <th>القسم</th>
-                        <th>عدد الآلات</th>
+                        <th>عدد الأجهزة</th>
                         <th>تكلفة الصيانة</th>
                     </tr>
                 </thead>
@@ -46,12 +46,12 @@
     </div>
 
     <div class="card">
-        <h3 class="card-title" style="margin-bottom: 1.5rem;">التكاليف حسب نوع الآلة (الأعلى تكلفة)</h3>
+        <h3 class="card-title" style="margin-bottom: 1.5rem;">التكاليف حسب نوع الجهاز (الأعلى تكلفة)</h3>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>نوع الآلة</th>
+                        <th>نوع الجهاز</th>
                         <th>إجمالي التكلفة</th>
                     </tr>
                 </thead>

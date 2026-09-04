@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'QR Code للآلة')
+@section('title', 'QR Code للجهاز')
 @section('header', 'رمز الاستجابة السريعة (QR Code)')
 
 @section('content')
@@ -13,14 +13,14 @@
         {!! $qrCode !!}
     </div>
     
-    <p style="color: var(--text-muted); margin-bottom: 2rem;">قم بمسح هذا الرمز باستخدام كاميرا الهاتف للوصول السريع لصفحة الآلة.</p>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">قم بمسح هذا الرمز باستخدام كاميرا الهاتف للوصول السريع لصفحة الجهاز.</p>
     
     <div style="display: flex; justify-content: center; gap: 1rem;">
         <a href="{{ route('equipment.print-qr', $equipment) }}" target="_blank" class="btn btn-primary">
             <i class="fa-solid fa-print"></i> طباعة الرمز
         </a>
         <a href="{{ route('equipment.show', $equipment) }}" class="btn btn-outline">
-            <i class="fa-solid fa-arrow-left"></i> عودة لتفاصيل الآلة
+            <i class="fa-solid fa-arrow-left"></i> عودة لتفاصيل الجهاز
         </a>
     </div>
 </div>

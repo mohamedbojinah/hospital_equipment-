@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'طلب صيانة جديد')
-@section('header', 'تسجيل طلب صيانة لآلة')
+@section('header', 'تسجيل طلب صيانة لجهاز')
 
 @section('content')
 <div class="card" style="max-width: 800px; margin: 0 auto;">
@@ -23,13 +23,13 @@
         @csrf
         
         <div class="form-group">
-            <label for="equipment_id" class="form-label">الآلة / الجهاز *</label>
+            <label for="equipment_id" class="form-label">الجهاز / الجهاز *</label>
             @if(isset($equipment))
                 <input type="hidden" name="equipment_id" value="{{ $equipment->id }}">
                 <input type="text" class="form-control" value="{{ $equipment->name }} (SN: {{ $equipment->serial_number }})" readonly style="background-color: #f1f5f9;">
             @else
                 <select name="equipment_id" id="equipment_id" class="form-control" required>
-                    <option value="">-- اختر الآلة --</option>
+                    <option value="">-- اختر الجهاز --</option>
                     @foreach(\App\Models\Equipment::all() as $eq)
                         <option value="{{ $eq->id }}" {{ old('equipment_id') == $eq->id ? 'selected' : '' }}>
                             {{ $eq->name }} (SN: {{ $eq->serial_number }})
@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            <label for="description" class="form-label">وصف المشكلة أو حالة الآلة *</label>
+            <label for="description" class="form-label">وصف المشكلة أو حجهاز الجهاز *</label>
             <textarea name="description" id="description" rows="5" class="form-control" required placeholder="يرجى كتابة تفاصيل المشكلة أو الفحص الذي تم...">{{ old('description') }}</textarea>
         </div>
 

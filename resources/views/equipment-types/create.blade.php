@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'إضافة نوع آلة')
-@section('header', 'إضافة نوع آلة جديد')
+@section('title', 'إضافة نوع جهاز')
+@section('header', 'إضافة نوع جهاز جديد')
 
 @section('content')
 <div class="card" style="max-width: 600px; margin: 0 auto;">

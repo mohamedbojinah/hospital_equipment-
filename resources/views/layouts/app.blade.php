@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'نظام إدارة آلات المستشفى')</title>
+    <title>@yield('title', 'نظام إدارة أجهزة المستشفى')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
@@ -24,12 +24,12 @@
                 @if(auth()->user()->isAdmin())
                 <li>
                     <a href="{{ route('equipment.index') }}" class="nav-item {{ request()->routeIs('equipment.*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-microscope"></i> إدارة الآلات
+                        <i class="fa-solid fa-microscope"></i> إدارة الأجهزة
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('equipment-types.index') }}" class="nav-item {{ request()->routeIs('equipment-types.*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-layer-group"></i> أنواع الآلات
+                        <i class="fa-solid fa-layer-group"></i> أنواع الأجهزة
                     </a>
                 </li>
                 <li>
@@ -69,7 +69,7 @@
                 </li>
                 <li>
                     <a href="{{ url('reports/equipment-status') }}" class="nav-item {{ request()->is('reports/equipment-status') ? 'active' : '' }}">
-                        <i class="fa-solid fa-chart-pie"></i> حالة الآلات
+                        <i class="fa-solid fa-chart-pie"></i> حجهاز الأجهزة
                     </a>
                 </li>
                 <li>

@@ -17,10 +17,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>الآلة</th>
+                    <th>الجهاز</th>
                     <th>نوع الصيانة</th>
                     <th>التاريخ</th>
-                    <th>الحالة</th>
+                    <th>الحجهاز</th>
                     <th>تفاصيل</th>
                 </tr>
             </thead>

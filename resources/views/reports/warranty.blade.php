@@ -17,7 +17,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>الآلة</th>
+                    <th>الجهاز</th>
                     <th>القسم</th>
                     <th>تاريخ الشراء</th>
                     <th>تاريخ انتهاء الضمان</th>
@@ -56,7 +56,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>الآلة</th>
+                        <th>الجهاز</th>
                         <th>تاريخ الانتهاء</th>
                     </tr>
                 </thead>
@@ -78,13 +78,13 @@
 
     <div class="card" style="border-right: 4px solid var(--primary-color);">
         <h3 class="card-title" style="margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-hourglass-half"></i> أقدم الآلات في المستشفى
+            <i class="fa-solid fa-hourglass-half"></i> أقدم الأجهزة في المستشفى
         </h3>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>الآلة</th>
+                        <th>الجهاز</th>
                         <th>تاريخ الشراء</th>
                         <th>العمر (سنوات)</th>
                     </tr>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'تعديل الآلة')
-@section('header', 'تعديل الآلة: ' . $equipment->name)
+@section('title', 'تعديل الجهاز')
+@section('header', 'تعديل الجهاز: ' . $equipment->name)
 
 @section('content')
 <div class="card" style="max-width: 900px; margin: 0 auto;">
@@ -26,7 +26,7 @@
         <h4 style="margin-top: 1rem; margin-bottom: 1rem; color: var(--primary-color);">المعلومات الأساسية والتصنيف</h4>
         <div class="grid grid-cols-2">
             <div class="form-group">
-                <label for="name" class="form-label">اسم الآلة *</label>
+                <label for="name" class="form-label">اسم الجهاز *</label>
                 <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $equipment->name) }}" required>
             </div>
             
@@ -38,7 +38,7 @@
 
         <div class="grid grid-cols-2">
             <div class="form-group">
-                <label for="equipment_type_id" class="form-label">نوع الآلة *</label>
+                <label for="equipment_type_id" class="form-label">نوع الجهاز *</label>
                 <select name="equipment_type_id" id="equipment_type_id" class="form-control" required>
                     <option value="">-- اختر النوع --</option>
                     @foreach($types as $type)
@@ -50,7 +50,7 @@
             </div>
             
             <div class="form-group">
-                <label for="status" class="form-label">الحالة *</label>
+                <label for="status" class="form-label">الحجهاز *</label>
                 <select name="status" id="status" class="form-control" required>
                     <option value="active" {{ old('status', $equipment->status) == 'active' ? 'selected' : '' }}>نشطة</option>
                     <option value="maintenance" {{ old('status', $equipment->status) == 'maintenance' ? 'selected' : '' }}>في الصيانة</option>

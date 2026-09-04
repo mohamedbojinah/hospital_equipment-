@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'إدارة الآلات')
-@section('header', 'إدارة الآلات والمعدات')
+@section('title', 'إدارة الأجهزة')
+@section('header', 'إدارة الأجهزة والمعدات')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">قائمة الآلات</h3>
+        <h3 class="card-title">قائمة الأجهزة</h3>
         <a href="{{ route('equipment.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> إضافة آلة جديدة
+            <i class="fa-solid fa-plus"></i> إضافة جهاز جديدة
         </a>
     </div>
 
@@ -24,11 +24,11 @@
             <thead>
                 <tr>
                     <th>م</th>
-                    <th>اسم الآلة</th>
+                    <th>اسم الجهاز</th>
                     <th>الرقم التسلسلي</th>
                     <th>النوع</th>
                     <th>القسم</th>
-                    <th>الحالة</th>
+                    <th>الحجهاز</th>
                     <th>QR Code</th>
                     <th>إجراءات</th>
                 </tr>
@@ -64,7 +64,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center">لا توجد آلات مضافة.</td>
+                    <td colspan="8" class="text-center">لا توجد أجهزة مضافة.</td>
                 </tr>
                 @endforelse
             </tbody>

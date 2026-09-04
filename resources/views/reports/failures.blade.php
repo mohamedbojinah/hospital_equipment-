@@ -7,7 +7,7 @@
 <div class="grid grid-cols-2">
     <div class="card" style="border-right: 4px solid var(--danger-color);">
         <div class="card-header">
-            <h3 class="card-title" style="color: var(--danger-color);">الآلات الأكثر عرضة للأعطال</h3>
+            <h3 class="card-title" style="color: var(--danger-color);">الأجهزة الأكثر عرضة للأعطال</h3>
             <button onclick="window.print()" class="btn btn-outline btn-sm">
                 <i class="fa-solid fa-print"></i>
             </button>
@@ -16,7 +16,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>الآلة</th>
+                        <th>الجهاز</th>
                         <th>القسم</th>
                         <th>عدد مرات التعطل</th>
                     </tr>
@@ -44,13 +44,13 @@
 
     <div class="card" style="border-right: 4px solid var(--warning-color);">
         <div class="card-header">
-            <h3 class="card-title" style="color: var(--warning-color);">أنواع الآلات الأكثر تعطلاً بشكل عام</h3>
+            <h3 class="card-title" style="color: var(--warning-color);">أنواع الأجهزة الأكثر تعطلاً بشكل عام</h3>
         </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>نوع الآلة</th>
+                        <th>نوع الجهاز</th>
                         <th>إجمالي مرات التعطل</th>
                     </tr>
                 </thead>

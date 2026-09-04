@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'أنواع الآلات')
-@section('header', 'إدارة أنواع الآلات')
+@section('title', 'أنواع الأجهزة')
+@section('header', 'إدارة أنواع الأجهزة')
 
 @section('content')
 <div class="card">
@@ -20,7 +20,7 @@
                     <th>الأيقونة</th>
                     <th>اسم النوع</th>
                     <th>الوصف</th>
-                    <th>عدد الآلات</th>
+                    <th>عدد الأجهزة</th>
                     <th>إجراءات</th>
                 </tr>
             </thead>
@@ -52,7 +52,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center">لا توجد أنواع آلات مضافة.</td>
+                    <td colspan="6" class="text-center">لا توجد أنواع أجهزة مضافة.</td>
                 </tr>
                 @endforelse
             </tbody>

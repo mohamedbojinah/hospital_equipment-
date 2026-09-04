@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'تعديل نوع آلة')
-@section('header', 'تعديل نوع آلة: ' . $equipmentType->name)
+@section('title', 'تعديل نوع جهاز')
+@section('header', 'تعديل نوع جهاز: ' . $equipmentType->name)
 
 @section('content')
 <div class="card" style="max-width: 600px; margin: 0 auto;">
