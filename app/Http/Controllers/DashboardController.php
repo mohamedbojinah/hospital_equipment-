@@ -52,14 +52,14 @@ class DashboardController extends Controller
             'pending_tickets' => \App\Models\Ticket::whereIn('status', ['open', 'in_progress'])->count(),
         ];
         
-        $pendingTickets = \App\Models\Ticket::with('equipment', 'user')->whereIn('status', ['open', 'in_progress'])->latest()->get();
+        $pendingTickets = \App\Models\Ticket::with('equipment', 'reporter')->whereIn('status', ['open', 'in_progress'])->latest()->get();
         
         return view('dashboard.supervisor', compact('stats', 'pendingTickets'));
     }
 
     private function employeeDashboard()
     {
-        $myTickets = \App\Models\Ticket::where('user_id', auth()->id())->latest()->get();
+        $myTickets = \App\Models\Ticket::where('reported_by', auth()->id())->latest()->get();
         
         $stats = [
             'total_tickets' => $myTickets->count(),

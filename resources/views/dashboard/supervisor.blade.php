@@ -38,7 +38,7 @@
                 <tr>
                     <td>#{{ $ticket->id }}</td>
                     <td>{{ $ticket->equipment->name ?? 'غير محدد' }}</td>
-                    <td>{{ $ticket->user->name ?? 'مجهول' }}</td>
+                    <td>{{ $ticket->reporter->name ?? 'مجهول' }}</td>
                     <td>
                         @if($ticket->priority == 'high') <span class="badge" style="background: var(--danger-color); color: white;">عالية</span>
                         @elseif($ticket->priority == 'medium') <span class="badge badge-warning">متوسطة</span>
