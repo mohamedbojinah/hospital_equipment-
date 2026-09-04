@@ -49,22 +49,24 @@ class DashboardController extends Controller
     {
         $stats = [
             'total_equipment' => Equipment::count(),
-            'pending_maintenance' => MaintenanceRecord::where('status', 'pending')->count(),
+            'pending_tickets' => \App\Models\Ticket::whereIn('status', ['open', 'in_progress'])->count(),
         ];
         
-        $pendingRecords = MaintenanceRecord::with('equipment', 'performer')->where('status', 'pending')->get();
+        $pendingTickets = \App\Models\Ticket::with('equipment', 'user')->whereIn('status', ['open', 'in_progress'])->latest()->get();
         
-        return view('dashboard.supervisor', compact('stats', 'pendingRecords'));
+        return view('dashboard.supervisor', compact('stats', 'pendingTickets'));
     }
 
     private function employeeDashboard()
     {
-        $myRecords = MaintenanceRecord::with('equipment')
-            ->where('performed_by', auth()->id())
-            ->latest()
-            ->take(10)
-            ->get();
-            
-        return view('dashboard.employee', compact('myRecords'));
+        $myTickets = \App\Models\Ticket::where('user_id', auth()->id())->latest()->get();
+        
+        $stats = [
+            'total_tickets' => $myTickets->count(),
+            'open_tickets' => $myTickets->whereIn('status', ['open', 'in_progress'])->count(),
+            'resolved_tickets' => $myTickets->where('status', 'resolved')->count(),
+        ];
+        
+        return view('dashboard.employee', compact('stats', 'myTickets'));
     }
 }

@@ -37,7 +37,7 @@ class MaintenanceController extends Controller
         ]);
 
         $validated['performed_by'] = auth()->id();
-        $validated['status'] = 'pending';
+        $validated['status'] = 'approved';
         $validated['started_at'] = now();
 
         $record = MaintenanceRecord::create($validated);

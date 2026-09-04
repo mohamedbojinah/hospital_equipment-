@@ -61,16 +61,17 @@ Route::get('/setup-db', function() {
         Route::get('reports/staff', [ReportController::class, 'staffPerformance'])->name('reports.staff');
         
         Route::patch('maintenance/{id}/approve', [MaintenanceController::class, 'approve']);
+        
+        // Maintenance
+        Route::post('maintenance', [MaintenanceController::class, 'store']);
+        Route::get('maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
+        Route::get('maintenance/calendar', [MaintenanceController::class, 'calendar'])->name('maintenance.calendar');
+        Route::get('maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
+        Route::get('maintenance/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance.show');
+        Route::get('maintenance/{equipment_id}/history', [MaintenanceController::class, 'history']);
     });
     
     // All authenticated users
-    Route::post('maintenance', [MaintenanceController::class, 'store']);
-    Route::get('maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
-    Route::get('maintenance/calendar', [MaintenanceController::class, 'calendar'])->name('maintenance.calendar');
-    Route::get('maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
-    Route::get('maintenance/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance.show');
-    Route::get('maintenance/{equipment_id}/history', [MaintenanceController::class, 'history']);
-    
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::patch('notifications/{id}/read', [NotificationController::class, 'markRead']);
     Route::post('notifications/read-all', [NotificationController::class, 'markAllRead']);
