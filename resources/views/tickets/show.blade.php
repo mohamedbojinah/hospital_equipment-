@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'تفاصيل التذكرة #' . $ticket->id)
+@section('title', 'تفاصيل البلاغ #' . $ticket->id)
 @section('header', 'تفاصيل البلاغ')
 
 @section('content')
 <div class="card" style="max-width: 900px; margin: 0 auto;">
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 class="card-title">تذكرة #{{ $ticket->id }}: {{ $ticket->title }}</h3>
+        <h3 class="card-title">بلاغ #{{ $ticket->id }}: {{ $ticket->title }}</h3>
         <div>
             @if($ticket->status == 'open') <span class="badge badge-warning" style="font-size: 1rem;">مفتوحة</span>
             @elseif($ticket->status == 'in_progress') <span class="badge badge-primary" style="font-size: 1rem;">قيد المعالجة</span>
@@ -57,20 +57,19 @@
 
     @if(auth()->user()->isAdmin() || auth()->user()->isSupervisor())
         <hr style="margin: 2rem 0;">
-        <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">إدارة التذكرة (للمهندسين)</h3>
+        <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">إدارة البلاغ (للمهندسين)</h3>
         
-        <form action="{{ route('tickets.update', $ticket) }}" method="POST" style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+        <form action="{{ route('tickets.update', $ticket) }}" method="POST" style="background: #f8fafc; padding: 1.5rem; border-radius: 6px; border: 1px solid #e2e8f0; margin-top: 1.5rem;">
             @csrf
             @method('PUT')
             
             <div class="grid grid-cols-2">
                 <div class="form-group">
-                    <label for="status" class="form-label">تحديث الحجهاز</label>
+                    <label for="status" class="form-label">تحديث حالة البلاغ</label>
                     <select name="status" id="status" class="form-control" required>
                         <option value="open" {{ $ticket->status == 'open' ? 'selected' : '' }}>مفتوحة</option>
                         <option value="in_progress" {{ $ticket->status == 'in_progress' ? 'selected' : '' }}>قيد المعالجة (جاري العمل عليها)</option>
-                        <option value="resolved" {{ $ticket->status == 'resolved' ? 'selected' : '' }}>تم الحل (تعمل الآن)</option>
-                        <option value="closed" {{ $ticket->status == 'closed' ? 'selected' : '' }}>مغلقة (تم إنهاؤها)</option>
+                        <option value="resolved" {{ $ticket->status == 'resolved' ? 'selected' : '' }}>مغلقة (تم الحل)</option>
                     </select>
                 </div>
                 
@@ -78,7 +77,7 @@
                     <label for="assigned_to" class="form-label">إسناد إلى مهندس</label>
                     <select name="assigned_to" id="assigned_to" class="form-control">
                         <option value="">-- غير مسندة --</option>
-                        @foreach($engineers as $eng)
+                        @foreach($engineers ?? [] as $eng)
                             <option value="{{ $eng->id }}" {{ $ticket->assigned_to == $eng->id ? 'selected' : '' }}>{{ $eng->name }}</option>
                         @endforeach
                     </select>
@@ -92,12 +91,14 @@
         
         <div style="margin-top: 2rem; display: flex; gap: 1rem;">
             <a href="{{ route('quotations.create', ['ticket_id' => $ticket->id]) }}" class="btn btn-warning" style="background: #fbbf24; color: #92400e; border:none;">
-                <i class="fa-solid fa-file-invoice-dollar"></i> طلب تسعيرة قطع غيار لهذه التذكرة
+                <i class="fa-solid fa-file-invoice-dollar"></i> طلب تسعيرة قطع غيار لهذا البلاغ
             </a>
             
-            <a href="{{ route('maintenance.create', ['equipment_id' => $ticket->equipment_id]) }}" class="btn btn-secondary">
-                <i class="fa-solid fa-screwdriver-wrench"></i> إغلاق التذكرة وكتابة تقرير صيانة
+            @if($ticket->status !== 'resolved')
+            <a href="{{ route('maintenance.create', ['equipment_id' => $ticket->equipment_id, 'ticket_id' => $ticket->id]) }}" class="btn btn-success" style="background: var(--success-color);">
+                <i class="fa-solid fa-clipboard-check"></i> كتابة تقرير صيانة وإغلاق البلاغ آلياً
             </a>
+            @endif
         </div>
     @endif
 </div>

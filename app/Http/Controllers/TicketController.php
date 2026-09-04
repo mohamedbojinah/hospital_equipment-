@@ -36,7 +36,7 @@ class TicketController extends Controller
 
         Ticket::create($validated);
 
-        return redirect()->route('tickets.index')->with('success', 'تم فتح التذكرة بنجاح.');
+        return redirect()->route('tickets.index')->with('success', 'تم تسجيل البلاغ بنجاح وسيتم مراجعته قريباً.');
     }
 
     public function show(Ticket $ticket)

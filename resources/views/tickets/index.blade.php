@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'نظام التذاكر (Tickets)')
-@section('header', 'نظام البلاغات والتذاكر')
+@section('title', 'نظام البلاغات (Tickets)')
+@section('header', 'نظام البلاغات والبلاغات')
 
 @section('content')
 <div class="card">
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 class="card-title">جميع التذاكر</h3>
+        <h3 class="card-title">جميع البلاغات</h3>
         <a href="{{ route('tickets.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> إنشاء تذكرة جديدة
+            <i class="fa-solid fa-plus"></i> إنشاء بلاغ جديدة
         </a>
     </div>
 
@@ -16,7 +16,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>رقم التذكرة</th>
+                    <th>رقم البلاغ</th>
                     <th>الجهاز</th>
                     <th>عنوان البلاغ</th>
                     <th>الأولوية</th>
@@ -54,7 +54,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center">لا توجد تذاكر حالياً.</td>
+                    <td colspan="8" class="text-center">لا توجد بلاغات حالياً.</td>
                 </tr>
                 @endforelse
             </tbody>

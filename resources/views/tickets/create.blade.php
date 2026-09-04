@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'فتح تذكرة جديدة')
-@section('header', 'الإبلاغ عن عطل (تذكرة صيانة)')
+@section('title', 'فتح بلاغ جديدة')
+@section('header', 'الإبلاغ عن عطل (بلاغ صيانة)')
 
 @section('content')
 <div class="card" style="max-width: 800px; margin: 0 auto;">

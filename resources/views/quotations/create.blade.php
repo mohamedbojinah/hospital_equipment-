@@ -24,7 +24,7 @@
         
         @if($ticket)
             <div class="alert alert-info" style="margin-bottom: 1.5rem;">
-                <strong>هذا العرض مرتبط بالتذكرة:</strong> #{{ $ticket->id }} - {{ $ticket->title }}
+                <strong>هذا العرض مرتبط بالبلاغ:</strong> #{{ $ticket->id }} - {{ $ticket->title }}
                 <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
                 <input type="hidden" name="equipment_id" value="{{ $ticket->equipment_id }}">
             </div>

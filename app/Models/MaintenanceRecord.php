@@ -17,6 +17,7 @@ class MaintenanceRecord extends Model
         'description',
         'status',
         'cost',
+        'ticket_id',
         'next_maintenance_date',
         'started_at',
         'completed_at',
@@ -39,6 +40,11 @@ class MaintenanceRecord extends Model
     public function performer()
     {
         return $this->belongsTo(User::class, 'performed_by');
+    }
+    
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
     }
 
     public function approver()

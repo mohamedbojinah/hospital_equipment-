@@ -34,6 +34,11 @@ class Ticket extends Model
         return $this->belongsTo(User::class, 'assigned_to');
     }
     
+    public function maintenanceRecords()
+    {
+        return $this->hasMany(MaintenanceRecord::class);
+    }
+    
     public function quotations()
     {
         return $this->hasMany(Quotation::class);

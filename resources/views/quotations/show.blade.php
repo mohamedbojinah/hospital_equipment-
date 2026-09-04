@@ -38,14 +38,14 @@
             </p>
         </div>
         <div>
-            <p style="color: var(--text-muted); margin-bottom: 0.25rem;">التذكرة المرتبطة</p>
+            <p style="color: var(--text-muted); margin-bottom: 0.25rem;">البلاغ المرتبطة</p>
             <p style="font-weight: 500;">
                 @if($quotation->ticket)
                     <a href="{{ route('tickets.show', $quotation->ticket) }}" target="_blank" style="color: var(--primary-color);">
-                        تذكرة #{{ $quotation->ticket->id }}: {{ $quotation->ticket->title }}
+                        بلاغ #{{ $quotation->ticket->id }}: {{ $quotation->ticket->title }}
                     </a>
                 @else
-                    لا يوجد تذكرة مرتبطة
+                    لا يوجد بلاغ مرتبطة
                 @endif
             </p>
         </div>

@@ -22,11 +22,27 @@
     <form action="{{ route('maintenance.index') }}" method="POST">
         @csrf
         
+        @if(isset($ticketId))
+            <input type="hidden" name="ticket_id" value="{{ $ticketId }}">
+            <div class="alert alert-info">
+                <i class="fa-solid fa-circle-info"></i> أنت تقوم بتسجيل صيانة لإغلاق البلاغ رقم #{{ $ticketId }}
+            </div>
+        @endif
+
         <div class="form-group">
-            <label for="equipment_id" class="form-label">الجهاز / الجهاز *</label>
+            <label for="equipment_id" class="form-label">الجهاز *</label>
             @if(isset($equipment))
                 <input type="hidden" name="equipment_id" value="{{ $equipment->id }}">
                 <input type="text" class="form-control" value="{{ $equipment->name }} (SN: {{ $equipment->serial_number }})" readonly style="background-color: #f1f5f9;">
+            @elseif(isset($selectedEquipmentId))
+                <input type="hidden" name="equipment_id" value="{{ $selectedEquipmentId }}">
+                <select class="form-control" disabled>
+                    @foreach(\App\Models\Equipment::all() as $eq)
+                        <option value="{{ $eq->id }}" {{ $eq->id == $selectedEquipmentId ? 'selected' : '' }}>
+                            {{ $eq->name }} (SN: {{ $eq->serial_number }})
+                        </option>
+                    @endforeach
+                </select>
             @else
                 <select name="equipment_id" id="equipment_id" class="form-control" required>
                     <option value="">-- اختر الجهاز --</option>

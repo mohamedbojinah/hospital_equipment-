@@ -55,7 +55,7 @@
 
                 <li>
                     <a href="{{ route('tickets.index') }}" class="nav-item {{ request()->routeIs('tickets.*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-triangle-exclamation"></i> نظام التذاكر
+                        <i class="fa-solid fa-triangle-exclamation"></i> نظام البلاغات
                     </a>
                 </li>
 

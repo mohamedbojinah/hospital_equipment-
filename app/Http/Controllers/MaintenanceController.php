@@ -16,12 +16,10 @@ class MaintenanceController extends Controller
 
     public function create(Request $request)
     {
-        $equipment = null;
-        if ($request->has('equipment_id')) {
-            $equipment = Equipment::findOrFail($request->equipment_id);
-        }
-        
-        return view('maintenance.create', compact('equipment'));
+        $equipment = Equipment::all();
+        $selectedEquipmentId = $request->query('equipment_id');
+        $ticketId = $request->query('ticket_id');
+        return view('maintenance.create', compact('equipment', 'selectedEquipmentId', 'ticketId'));
     }
 
     public function store(Request $request)
@@ -34,6 +32,7 @@ class MaintenanceController extends Controller
             'next_maintenance_date' => 'nullable|date|after:today',
             'engineer_report' => 'nullable|string',
             'spare_parts_changed' => 'nullable|string',
+            'ticket_id' => 'nullable|exists:tickets,id',
         ]);
 
         $validated['performed_by'] = auth()->id();
@@ -42,11 +41,18 @@ class MaintenanceController extends Controller
 
         $record = MaintenanceRecord::create($validated);
         
-        // Update equipment status
         $equipment = Equipment::find($validated['equipment_id']);
-        $equipment->update(['status' => 'maintenance']);
+        $equipment->update(['status' => 'active']); // Set back to active if maintenance is approved
 
-        return redirect()->route('dashboard')->with('success', 'تم تسجيل طلب الصيانة بنجاح. في انتظار الاعتماد.');
+        // Auto-close ticket if linked
+        if (!empty($validated['ticket_id'])) {
+            $ticket = \App\Models\Ticket::find($validated['ticket_id']);
+            if ($ticket && $ticket->status !== 'resolved') {
+                $ticket->update(['status' => 'resolved']);
+            }
+        }
+
+        return redirect()->route('dashboard')->with('success', 'تم تسجيل تقرير الصيانة وإغلاق البلاغ بنجاح.');
     }
 
     public function show(MaintenanceRecord $maintenance)
