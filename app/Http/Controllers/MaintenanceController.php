@@ -16,10 +16,9 @@ class MaintenanceController extends Controller
 
     public function create(Request $request)
     {
-        $equipment = Equipment::all();
         $selectedEquipmentId = $request->query('equipment_id');
         $ticketId = $request->query('ticket_id');
-        return view('maintenance.create', compact('equipment', 'selectedEquipmentId', 'ticketId'));
+        return view('maintenance.create', compact('selectedEquipmentId', 'ticketId'));
     }
 
     public function store(Request $request)
