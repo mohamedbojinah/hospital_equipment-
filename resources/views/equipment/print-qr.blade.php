@@ -22,7 +22,7 @@
         
         <div>{!! $qrCode !!}</div>
         
-        <div style="margin-top: 1rem; font-size: 0.8rem; color: #999;">مستشفى مديكال-تك</div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #999;">مستشفى إدامة</div>
         
         <button onclick="window.print()" style="margin-top: 2rem; padding: 0.5rem 1rem; cursor: pointer;">طباعة</button>
     </div>

@@ -12,7 +12,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2><i class="fa-solid fa-hospital"></i> مديكال-تك</h2>
+                <h2><i class="fa-solid fa-hospital"></i> إدامة</h2>
             </div>
             <ul class="sidebar-nav">
                 <li>

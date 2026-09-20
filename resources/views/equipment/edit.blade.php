@@ -50,7 +50,7 @@
             </div>
             
             <div class="form-group">
-                <label for="status" class="form-label">الحجهاز *</label>
+                <label for="status" class="form-label">حالة الجهاز *</label>
                 <select name="status" id="status" class="form-control" required>
                     <option value="active" {{ old('status', $equipment->status) == 'active' ? 'selected' : '' }}>نشطة</option>
                     <option value="maintenance" {{ old('status', $equipment->status) == 'maintenance' ? 'selected' : '' }}>في الصيانة</option>
