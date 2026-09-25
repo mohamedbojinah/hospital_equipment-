@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'تقرير حجهاز الأجهزة')
-@section('header', 'تقرير حجهاز الأجهزة والمعدات')
+@section('title', 'تقرير حالة الأجهزة')
+@section('header', 'تقرير حالة الأجهزة والمعدات')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">نظرة عامة على حجهاز الأجهزة</h3>
+        <h3 class="card-title">نظرة عامة على حالة الأجهزة</h3>
         <button onclick="window.print()" class="btn btn-outline">
             <i class="fa-solid fa-print"></i> طباعة التقرير
         </button>

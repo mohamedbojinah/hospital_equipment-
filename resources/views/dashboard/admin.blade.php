@@ -32,7 +32,7 @@
     <!-- Equipment Status Donut Chart -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">حجهاز الأجهزة</h3>
+            <h3 class="card-title">حالة الأجهزة</h3>
         </div>
         <div style="height: 300px; display: flex; justify-content: center;">
             <canvas id="statusChart"></canvas>

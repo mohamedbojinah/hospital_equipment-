@@ -80,6 +80,10 @@ Route::get('/migrate-only', function() {
         Route::get('maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
         Route::get('maintenance/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance.show');
         Route::get('maintenance/{equipment_id}/history', [MaintenanceController::class, 'history']);
+        
+        // Quotations (Admin & Supervisor only)
+        Route::resource('quotations', QuotationController::class);
+        Route::patch('quotations/{quotation}/approve', [QuotationController::class, 'approve'])->name('quotations.approve');
     });
     
     // All authenticated users
@@ -87,8 +91,6 @@ Route::get('/migrate-only', function() {
     Route::patch('notifications/{id}/read', [NotificationController::class, 'markRead']);
     Route::post('notifications/read-all', [NotificationController::class, 'markAllRead']);
     
-    // Tickets & Quotations
+    // Tickets
     Route::resource('tickets', TicketController::class);
-    Route::resource('quotations', QuotationController::class);
-    Route::patch('quotations/{quotation}/approve', [QuotationController::class, 'approve'])->name('quotations.approve');
 });

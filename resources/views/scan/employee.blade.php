@@ -22,8 +22,8 @@
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <a href="{{ route('maintenance.create', ['equipment_id' => $equipment->id]) }}" class="btn btn-secondary" style="width: 100%;">
-            <i class="fa-solid fa-screwdriver-wrench"></i> تسجيل صيانة لهذه الجهاز
+        <a href="{{ route('tickets.create', ['equipment_id' => $equipment->id]) }}" class="btn btn-warning" style="width: 100%;">
+            <i class="fa-solid fa-triangle-exclamation"></i> إبلاغ عن عطل في هذا الجهاز
         </a>
         
         <a href="{{ route('dashboard') }}" class="btn btn-outline" style="width: 100%;">

@@ -105,7 +105,7 @@
             </div>
             
             <div class="form-group" style="margin-top: 1rem;">
-                <label for="status" class="form-label">حجهاز التقرير *</label>
+                <label for="status" class="form-label">حالة جهاز التقرير *</label>
                 <select name="status" class="form-control" required>
                     <option value="completed" {{ $maintenance->status == 'completed' ? 'selected' : '' }}>مكتملة (تم إنهاء العمل)</option>
                     <option value="approved" {{ $maintenance->status == 'approved' ? 'selected' : '' }}>اعتماد فقط</option>

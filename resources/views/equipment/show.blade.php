@@ -52,6 +52,24 @@
                 <td>{{ $equipment->warranty_expiry ? $equipment->warranty_expiry->format('Y-m-d') : 'غير محدد' }}</td>
             </tr>
             <tr>
+                <th style="background: none;">الشركة المصنعة</th>
+                <td>{{ $equipment->manufacturer ?? 'غير محدد' }}</td>
+            </tr>
+            <tr>
+                <th style="background: none;">الشركة الموردة</th>
+                <td>{{ $equipment->supplier ?? 'غير محدد' }}</td>
+            </tr>
+            <tr>
+                <th style="background: none;">بريد الشركة</th>
+                <td>
+                    @if($equipment->company_email)
+                        <a href="mailto:{{ $equipment->company_email }}">{{ $equipment->company_email }}</a>
+                    @else
+                        غير محدد
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <th style="background: none;">تمت الإضافة بواسطة</th>
                 <td>{{ $equipment->creator->name ?? 'مجهول' }}</td>
             </tr>

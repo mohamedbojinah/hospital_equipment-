@@ -59,11 +59,13 @@
                     </a>
                 </li>
 
+                @if(auth()->user()->isAdmin() || auth()->user()->isSupervisor())
                 <li>
                     <a href="{{ route('quotations.index') }}" class="nav-item {{ request()->routeIs('quotations.*') ? 'active' : '' }}">
                         <i class="fa-solid fa-file-invoice-dollar"></i> عروض الأسعار
                     </a>
                 </li>
+                @endif
                 
                 @if(auth()->user()->isAdmin() || auth()->user()->isSupervisor())
                 <li style="margin-top: 1rem;">
@@ -71,7 +73,7 @@
                 </li>
                 <li>
                     <a href="{{ url('reports/equipment-status') }}" class="nav-item {{ request()->is('reports/equipment-status') ? 'active' : '' }}">
-                        <i class="fa-solid fa-chart-pie"></i> حجهاز الأجهزة
+                        <i class="fa-solid fa-chart-pie"></i> حالة الأجهزة
                     </a>
                 </li>
                 <li>

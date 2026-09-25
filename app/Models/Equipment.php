@@ -24,6 +24,7 @@ class Equipment extends Model
         'manufacturer',
         'model_number',
         'supplier',
+        'company_email',
         'purchase_price',
         'invoice_number',
         'expected_life_span',

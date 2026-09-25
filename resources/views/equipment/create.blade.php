@@ -85,6 +85,10 @@
                 <input type="text" name="supplier" id="supplier" class="form-control" value="{{ old('supplier') }}">
             </div>
             <div class="form-group">
+                <label for="company_email" class="form-label">بريد الشركة (Company Email)</label>
+                <input type="email" name="company_email" id="company_email" class="form-control" value="{{ old('company_email') }}">
+            </div>
+            <div class="form-group">
                 <label for="invoice_number" class="form-label">رقم الفاتورة / العقد</label>
                 <input type="text" name="invoice_number" id="invoice_number" class="form-control" value="{{ old('invoice_number') }}">
             </div>

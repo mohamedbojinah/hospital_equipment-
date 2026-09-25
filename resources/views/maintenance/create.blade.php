@@ -65,7 +65,7 @@
         </div>
 
         <div class="form-group">
-            <label for="description" class="form-label">وصف المشكلة أو حجهاز الجهاز *</label>
+            <label for="description" class="form-label">وصف المشكلة أو حالة الجهاز *</label>
             <textarea name="description" id="description" rows="5" class="form-control" required placeholder="يرجى كتابة تفاصيل المشكلة أو الفحص الذي تم...">{{ old('description') }}</textarea>
         </div>
 
