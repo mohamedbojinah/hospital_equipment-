@@ -23,11 +23,6 @@
                 
                 @if(auth()->user()->isAdmin())
                 <li>
-                    <a href="{{ route('equipment.index') }}" class="nav-item {{ request()->routeIs('equipment.*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-microscope"></i> إدارة الأجهزة
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('equipment-types.index') }}" class="nav-item {{ request()->routeIs('equipment-types.*') ? 'active' : '' }}">
                         <i class="fa-solid fa-layer-group"></i> أنواع الأجهزة
                     </a>
@@ -40,6 +35,11 @@
                 @endif
                 
                 @if(auth()->user()->isAdmin() || auth()->user()->isSupervisor())
+                <li>
+                    <a href="{{ route('equipment.index') }}" class="nav-item {{ request()->routeIs('equipment.*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-microscope"></i> إدارة الأجهزة
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('maintenance.index') }}" class="nav-item {{ request()->routeIs('maintenance.index') || request()->routeIs('maintenance.show') ? 'active' : '' }}">
                         <i class="fa-solid fa-screwdriver-wrench"></i> سجلات الصيانة

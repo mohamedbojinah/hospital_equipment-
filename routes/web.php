@@ -54,13 +54,13 @@ Route::get('/migrate-only', function() {
     Route::middleware('role:admin')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('equipment-types', EquipmentTypeController::class);
-        Route::resource('equipment', EquipmentController::class);
-        Route::get('equipment/{id}/qr', [EquipmentController::class, 'generateQR'])->name('equipment.qr');
-        Route::get('equipment/{id}/print-qr', [EquipmentController::class, 'printQR'])->name('equipment.print-qr');
     });
     
     // Admin + Supervisor
     Route::middleware('role:admin,supervisor')->group(function () {
+        Route::resource('equipment', EquipmentController::class);
+        Route::get('equipment/{id}/qr', [EquipmentController::class, 'generateQR'])->name('equipment.qr');
+        Route::get('equipment/{id}/print-qr', [EquipmentController::class, 'printQR'])->name('equipment.print-qr');
         Route::get('reports/equipment-status', [ReportController::class, 'equipmentStatus']);
         Route::get('reports/maintenance', [ReportController::class, 'maintenanceSummary']);
         Route::get('reports/statistics', [ReportController::class, 'statistics']);
