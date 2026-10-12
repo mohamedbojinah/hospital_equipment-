@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Quotation;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class QuotationController extends Controller
@@ -41,7 +43,24 @@ class QuotationController extends Controller
             $validated['file_path'] = $request->file('quotation_file')->store('quotations', 'public');
         }
 
-        Quotation::create($validated);
+        $quotation = Quotation::create($validated);
+        $equipment = \App\Models\Equipment::find($validated['equipment_id']);
+
+        // إشعار المشرفين والمدراء بعرض السعر الجديد
+        $supervisors = User::whereIn('role', ['admin', 'supervisor'])
+            ->where('id', '!=', auth()->id())
+            ->get();
+
+        foreach ($supervisors as $supervisor) {
+            Notification::create([
+                'user_id' => $supervisor->id,
+                'title' => 'عرض سعر جديد بحاجة للمراجعة',
+                'message' => 'تم تقديم عرض سعر: "' . $quotation->title . '" بقيمة ' . number_format($quotation->total_amount, 2) . ' د.ل للجهاز (' . ($equipment->name ?? '') . ') بواسطة ' . auth()->user()->name . '.',
+                'type' => 'warning',
+                'is_read' => false,
+                'related_equipment_id' => $equipment->id ?? null,
+            ]);
+        }
 
         return redirect()->route('quotations.index')->with('success', 'تم تقديم عرض السعر/الطلب بنجاح.');
     }
@@ -62,6 +81,19 @@ class QuotationController extends Controller
             'status' => $validated['status'],
             'approved_by' => auth()->id(),
         ]);
+
+        // إشعار مقدم الطلب بحالة عرض السعر
+        if ($quotation->submitted_by && $quotation->submitted_by != auth()->id()) {
+            $statusText = $validated['status'] == 'approved' ? 'الموافقة على' : 'رفض';
+            Notification::create([
+                'user_id' => $quotation->submitted_by,
+                'title' => 'تحديث حالة عرض السعر',
+                'message' => 'تم ' . $statusText . ' عرض السعر "' . $quotation->title . '" الخاص بالجهاز (' . ($quotation->equipment->name ?? '') . ') من قبل ' . auth()->user()->name . '.',
+                'type' => $validated['status'] == 'approved' ? 'success' : 'danger',
+                'is_read' => false,
+                'related_equipment_id' => $quotation->equipment_id,
+            ]);
+        }
 
         return back()->with('success', 'تم تحديث حالة العرض بنجاح.');
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipment;
 use App\Models\MaintenanceRecord;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MaintenanceController extends Controller
@@ -43,12 +45,46 @@ class MaintenanceController extends Controller
         $equipment = Equipment::find($validated['equipment_id']);
         $equipment->update(['status' => 'active']); // Set back to active if maintenance is approved
 
-        // Auto-close ticket if linked
+        // Auto-close ticket if linked and notify reporter
         if (!empty($validated['ticket_id'])) {
             $ticket = \App\Models\Ticket::find($validated['ticket_id']);
             if ($ticket && $ticket->status !== 'resolved') {
                 $ticket->update(['status' => 'resolved']);
+
+                if ($ticket->reported_by && $ticket->reported_by != auth()->id()) {
+                    Notification::create([
+                        'user_id' => $ticket->reported_by,
+                        'title' => 'تم إنجاز الصيانة وإغلاق البلاغ',
+                        'message' => 'تم تسجيل تقرير الصيانة للجهاز (' . ($equipment->name ?? '') . ') وإغلاق بلاغك رقم #' . $ticket->id . ' بنجاح.',
+                        'type' => 'success',
+                        'is_read' => false,
+                        'related_equipment_id' => $equipment->id ?? null,
+                    ]);
+                }
             }
+        }
+
+        // إشعار المشرفين والمدراء بتسجيل الصيانة
+        $supervisors = User::whereIn('role', ['admin', 'supervisor'])
+            ->where('id', '!=', auth()->id())
+            ->get();
+
+        $typeName = match($validated['type']) {
+            'preventive' => 'صيانة دورية وقائية',
+            'corrective' => 'صيانة تصحيحية',
+            'emergency' => 'صيانة طارئة',
+            default => 'صيانة'
+        };
+
+        foreach ($supervisors as $supervisor) {
+            Notification::create([
+                'user_id' => $supervisor->id,
+                'title' => 'تسجيل تقرير صيانة جديد',
+                'message' => 'قام المهندس ' . auth()->user()->name . ' بتسجيل تقرير ' . $typeName . ' للجهاز (' . ($equipment->name ?? '') . ').',
+                'type' => 'info',
+                'is_read' => false,
+                'related_equipment_id' => $equipment->id ?? null,
+            ]);
         }
 
         return redirect()->route('dashboard')->with('success', 'تم تسجيل تقرير الصيانة وإغلاق البلاغ بنجاح.');
@@ -85,6 +121,18 @@ class MaintenanceController extends Controller
         
         if ($validated['status'] == 'completed' || $validated['status'] == 'approved') {
             $record->equipment->update(['status' => 'active']);
+        }
+
+        // إشعار القائم بالصيانة عند اعتماد التقرير
+        if ($record->performed_by && $record->performed_by != auth()->id()) {
+            Notification::create([
+                'user_id' => $record->performed_by,
+                'title' => 'اعتماد تقرير الصيانة',
+                'message' => 'تم اعتماد تقرير الصيانة الخاص بالجهاز (' . ($record->equipment->name ?? '') . ') من قبل ' . auth()->user()->name . '.',
+                'type' => 'success',
+                'is_read' => false,
+                'related_equipment_id' => $record->equipment_id,
+            ]);
         }
 
         return back()->with('success', 'تم تحديث حالة الصيانة بنجاح.');

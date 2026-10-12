@@ -38,7 +38,7 @@
             <select name="role" id="role" class="form-control" required>
                 <option value="admin" {{ (old('role', $user->role) == 'admin') ? 'selected' : '' }}>مدير نظام</option>
                 <option value="supervisor" {{ (old('role', $user->role) == 'supervisor') ? 'selected' : '' }}>مشرف صيانة</option>
-                <option value="employee" {{ (old('role', $user->role) == 'employee') ? 'selected' : '' }}>موظف مستشفى</option>
+                <option value="employee" {{ (old('role', $user->role) == 'employee') ? 'selected' : '' }}>فني تشغيلي</option>
             </select>
         </div>
 

@@ -6,7 +6,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">قائمة الموظفين</h3>
+        <h3 class="card-title">قائمة المستخدمين والفنيين</h3>
         <a href="{{ route('users.create') }}" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> إضافة مستخدم جديد
         </a>
@@ -34,7 +34,7 @@
                     <td>
                         @if($user->role == 'admin') <span class="badge badge-info">مدير نظام</span>
                         @elseif($user->role == 'supervisor') <span class="badge badge-warning">مشرف صيانة</span>
-                        @else <span class="badge" style="background:#e2e8f0; color:#475569;">موظف</span> @endif
+                        @else <span class="badge" style="background:#e2e8f0; color:#475569;">فني تشغيلي</span> @endif
                     </td>
                     <td>{{ $user->phone ?? '-' }}</td>
                     <td>

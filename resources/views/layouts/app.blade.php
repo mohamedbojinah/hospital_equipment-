@@ -93,7 +93,7 @@
                 </li>
                 <li>
                     <a href="{{ route('reports.staff') }}" class="nav-item {{ request()->routeIs('reports.staff') ? 'active' : '' }}">
-                        <i class="fa-solid fa-users-gear"></i> أداء الموظفين
+                        <i class="fa-solid fa-users-gear"></i> أداء الفنيين التشغيليين
                     </a>
                 </li>
                 @endif
@@ -109,17 +109,22 @@
                 </div>
                 
                 <div class="user-menu">
-                    <a href="{{ url('notifications') }}" class="btn btn-outline" style="border:none; position:relative;">
-                        <i class="fa-regular fa-bell"></i>
-                        @if(auth()->user()->notifications()->where('is_read', false)->count() > 0)
-                        <span style="position:absolute; top:5px; right:5px; background:var(--danger-color); width:10px; height:10px; border-radius:50%;"></span>
+                    @php
+                        $unreadNotificationsCount = auth()->user()->notifications()->where('is_read', false)->count();
+                    @endphp
+                    <a href="{{ url('notifications') }}" class="btn btn-outline" style="border:none; position:relative;" title="الإشعارات">
+                        <i class="fa-regular fa-bell" style="font-size: 1.25rem;"></i>
+                        @if($unreadNotificationsCount > 0)
+                        <span style="position:absolute; top:2px; right:2px; background:var(--danger-color); color:white; font-size:0.7rem; font-weight:bold; min-width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; padding:1px 4px; box-shadow: 0 0 5px rgba(220, 38, 38, 0.5);">
+                            {{ $unreadNotificationsCount > 99 ? '99+' : $unreadNotificationsCount }}
+                        </span>
                         @endif
                     </a>
                     
                     <div style="font-weight: 500;">
                         {{ auth()->user()->name }}
                         <span class="badge badge-info" style="margin-right: 5px;">
-                            @if(auth()->user()->isAdmin()) مدير @elseif(auth()->user()->isSupervisor()) مشرف @else موظف @endif
+                            @if(auth()->user()->isAdmin()) مدير @elseif(auth()->user()->isSupervisor()) مشرف @else فني تشغيلي @endif
                         </span>
                     </div>
                     

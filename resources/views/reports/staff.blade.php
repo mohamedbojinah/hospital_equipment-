@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'تقرير أداء الموظفين')
-@section('header', 'تقرير أداء الموظفين والفنيين')
+@section('title', 'تقرير أداء الفنيين التشغيليين')
+@section('header', 'تقرير أداء الفنيين التشغيليين')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">معدلات إنجاز المهام حسب الموظف</h3>
+        <h3 class="card-title">معدلات إنجاز المهام حسب الفني التشغيلي</h3>
         <button onclick="window.print()" class="btn btn-outline">
             <i class="fa-solid fa-print"></i> طباعة التقرير
         </button>
@@ -16,7 +16,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>الموظف</th>
+                    <th>الفني التشغيلي</th>
                     <th>الدور</th>
                     <th>إجمالي المهام المسجلة</th>
                     <th>المهام المكتملة</th>
@@ -31,7 +31,7 @@
                     <td>
                         @if($user->role == 'admin') مدير نظام
                         @elseif($user->role == 'supervisor') مشرف صيانة
-                        @else موظف مستشفى @endif
+                        @else فني تشغيلي @endif
                     </td>
                     <td>{{ $user->total_tasks }}</td>
                     <td style="color: var(--secondary-dark); font-weight: bold;">{{ $user->completed_tasks }}</td>
@@ -47,7 +47,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center">لا توجد بيانات مسجلة لموظفين قاموا بمهام صيانة.</td>
+                    <td colspan="6" class="text-center">لا توجد بيانات مسجلة لفنيين تشغيليين قاموا بمهام صيانة.</td>
                 </tr>
                 @endforelse
             </tbody>

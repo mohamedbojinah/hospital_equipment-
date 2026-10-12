@@ -38,7 +38,7 @@
                 <option value="">-- اختر الدور --</option>
                 <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>مدير نظام</option>
                 <option value="supervisor" {{ old('role') == 'supervisor' ? 'selected' : '' }}>مشرف صيانة</option>
-                <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>موظف مستشفى</option>
+                <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>فني تشغيلي</option>
             </select>
         </div>
 

@@ -31,7 +31,7 @@ class DemoSeeder extends Seeder
         ]);
 
         $employee = User::create([
-            'name' => 'موظف الأشعة',
+            'name' => 'فني تشغيلي (أشعة)',
             'email' => 'employee@hospital.com',
             'password' => Hash::make('password'),
             'role' => 'employee',
@@ -79,7 +79,7 @@ class DemoSeeder extends Seeder
             'created_by' => $admin->id,
         ]);
         
-        Equipment::create([
+        $eq3 = Equipment::create([
             'name' => 'جهاز تخطيط قلب متنقل',
             'serial_number' => 'ECG-MOB-9932',
             'equipment_type_id' => $typeIds[2],
@@ -88,6 +88,25 @@ class DemoSeeder extends Seeder
             'status' => 'maintenance',
             'qr_code' => Str::uuid()->toString(),
             'created_by' => $admin->id,
+        ]);
+
+        // 4. Demo Notifications
+        \App\Models\Notification::create([
+            'user_id' => $supervisor->id,
+            'title' => 'طلب صيانة جديد (بلاغ عطل)',
+            'message' => 'تم استلام بلاغ عطل لجهاز تخطيط قلب متنقل في قسم الطوارئ بحاجة لمعاينة فورية.',
+            'type' => 'warning',
+            'is_read' => false,
+            'related_equipment_id' => $eq3->id,
+        ]);
+
+        \App\Models\Notification::create([
+            'user_id' => $admin->id,
+            'title' => 'طلب صيانة جديد (بلاغ عطل)',
+            'message' => 'تم استلام بلاغ عطل جديد لجهاز تخطيط قلب متنقل في قسم الطوارئ.',
+            'type' => 'warning',
+            'is_read' => false,
+            'related_equipment_id' => $eq3->id,
         ]);
     }
 }

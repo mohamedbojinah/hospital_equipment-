@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'لوحة تحكم المستخدم')
+@section('title', 'لوحة تحكم الفني التشغيلي')
 @section('header', 'مرحباً، ' . auth()->user()->name)
 
 @section('content')
