@@ -43,6 +43,27 @@ Route::get('/debug-log', function() {
     return 'No log file found';
 });
 
+Route::get('/test-manual-fail', function() {
+    $v = \Illuminate\Support\Facades\Validator::make(
+        ['serial_number' => 'CT-SIEM-2023-001'],
+        ['serial_number' => 'unique:equipment,serial_number'],
+        ['serial_number.unique' => 'الرقم التسلسلي مكرر']
+    );
+    if ($v->fails()) {
+        return redirect()->route('equipment.create')->withErrors($v)->withInput();
+    }
+    return 'Passed';
+});
+
+Route::get('/test-exception-fail', function(\Illuminate\Http\Request $request) {
+    $request->merge(['serial_number' => 'CT-SIEM-2023-001']);
+    $request->validate(
+        ['serial_number' => 'unique:equipment,serial_number'],
+        ['serial_number.unique' => 'الرقم التسلسلي مكرر']
+    );
+    return 'Passed';
+});
+
 // Authenticated routes
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
