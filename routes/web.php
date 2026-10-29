@@ -22,23 +22,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // QR Scan (public route - redirects based on auth status)
 Route::get('/scan/{qr_code}', [EquipmentController::class, 'scanRedirect'])->name('scan');
 
-// Authenticated routes
-Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-// المؤقت لتشغيل قاعدة البيانات على الاستضافة المجانية
-Route::get('/setup-db', function() {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
-            '--seed' => true,
-            '--force' => true
-        ]);
-        return 'تم تهيئة قاعدة البيانات بالكامل (Fresh).';
-    } catch (\Exception $e) {
-        return 'حدث خطأ: ' . $e->getMessage();
-    }
-});
-
+// تحديث قاعدة البيانات السحابية مباشرة وبأمان
 Route::get('/migrate-only', function() {
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate', [
@@ -49,6 +33,23 @@ Route::get('/migrate-only', function() {
         return 'حدث خطأ: ' . $e->getMessage();
     }
 });
+
+// Authenticated routes
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // إعادة التهيئة الكاملة لقاعدة البيانات
+    Route::get('/setup-db', function() {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+                '--seed' => true,
+                '--force' => true
+            ]);
+            return 'تم تهيئة قاعدة البيانات بالكامل (Fresh).';
+        } catch (\Exception $e) {
+            return 'حدث خطأ: ' . $e->getMessage();
+        }
+    });
     
     // Admin only
     Route::middleware('role:admin')->group(function () {
