@@ -7,6 +7,10 @@ ENV PHP_DATE_TIMEZONE=UTC
 
 WORKDIR /app
 
+# Copy custom Nginx FastCGI buffer configurations
+COPY docker/nginx/fastcgi_buffers.conf /opt/docker/etc/nginx/vhost.common.d/fastcgi_buffers.conf
+COPY docker/nginx/fastcgi_buffers.conf /opt/docker/etc/nginx/conf.d/fastcgi_buffers.conf
+
 # Copy application files
 COPY . .
 
@@ -14,7 +18,5 @@ COPY . .
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Set permissions
-RUN chown -R application:application .
-
-# Note: The database migration will be handled manually or via a script, 
-# but for now we let the container start automatically on port 80.
+RUN chmod -R 775 storage bootstrap/cache \
+    && chown -R application:application .

@@ -9,6 +9,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class EquipmentController extends Controller
 {
@@ -39,7 +40,7 @@ class EquipmentController extends Controller
             'serial_number' => is_string($request->serial_number) ? trim($request->serial_number) : $request->serial_number,
         ]);
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => [
                 'required',
                 'string',
@@ -71,6 +72,14 @@ class EquipmentController extends Controller
             'manual_file' => 'nullable|file|mimes:pdf|max:10240', // 10MB max
         ], $this->validationMessages());
 
+        if ($validator->fails()) {
+            return redirect()->route('equipment.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
+
         try {
             if ($request->hasFile('manual_file')) {
                 $validated['manual_file_path'] = $request->file('manual_file')->store('manuals', 'public');
@@ -85,13 +94,13 @@ class EquipmentController extends Controller
         } catch (QueryException $e) {
             if (isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062) {
                 if (str_contains($e->getMessage(), 'serial_number')) {
-                    return back()->withInput()->withErrors(['serial_number' => 'الرقم التسلسلي مسجل مسبقاً لجهاز آخر في النظام.']);
+                    return redirect()->route('equipment.create')->withInput()->withErrors(['serial_number' => 'الرقم التسلسلي مسجل مسبقاً لجهاز آخر في النظام.']);
                 }
                 if (str_contains($e->getMessage(), 'name')) {
-                    return back()->withInput()->withErrors(['name' => 'اسم الجهاز مسجل مسبقاً في النظام، يرجى اختيار اسم غير مكرر.']);
+                    return redirect()->route('equipment.create')->withInput()->withErrors(['name' => 'اسم الجهاز مسجل مسبقاً في النظام، يرجى اختيار اسم غير مكرر.']);
                 }
             }
-            return back()->withInput()->withErrors(['error' => 'تعذر حفظ الجهاز بسبب تعارض في البيانات، يرجى التأكد من عدم تكرار الاسم أو الرقم التسلسلي.']);
+            return redirect()->route('equipment.create')->withInput()->withErrors(['error' => 'تعذر حفظ الجهاز بسبب تعارض في البيانات، يرجى التأكد من عدم تكرار الاسم أو الرقم التسلسلي.']);
         }
     }
 
@@ -117,7 +126,7 @@ class EquipmentController extends Controller
             'serial_number' => is_string($request->serial_number) ? trim($request->serial_number) : $request->serial_number,
         ]);
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => [
                 'required',
                 'string',
@@ -150,6 +159,14 @@ class EquipmentController extends Controller
             'manual_file' => 'nullable|file|mimes:pdf|max:10240',
         ], $this->validationMessages());
 
+        if ($validator->fails()) {
+            return redirect()->route('equipment.edit', $equipment)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
+
         try {
             if ($request->hasFile('manual_file')) {
                 $validated['manual_file_path'] = $request->file('manual_file')->store('manuals', 'public');
@@ -161,13 +178,13 @@ class EquipmentController extends Controller
         } catch (QueryException $e) {
             if (isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062) {
                 if (str_contains($e->getMessage(), 'serial_number')) {
-                    return back()->withInput()->withErrors(['serial_number' => 'الرقم التسلسلي مسجل مسبقاً لجهاز آخر في النظام.']);
+                    return redirect()->route('equipment.edit', $equipment)->withInput()->withErrors(['serial_number' => 'الرقم التسلسلي مسجل مسبقاً لجهاز آخر في النظام.']);
                 }
                 if (str_contains($e->getMessage(), 'name')) {
-                    return back()->withInput()->withErrors(['name' => 'اسم الجهاز مسجل مسبقاً في النظام، يرجى اختيار اسم غير مكرر.']);
+                    return redirect()->route('equipment.edit', $equipment)->withInput()->withErrors(['name' => 'اسم الجهاز مسجل مسبقاً في النظام، يرجى اختيار اسم غير مكرر.']);
                 }
             }
-            return back()->withInput()->withErrors(['error' => 'تعذر تحديث الجهاز بسبب تعارض في البيانات، يرجى التأكد من عدم تكرار الاسم أو الرقم التسلسلي.']);
+            return redirect()->route('equipment.edit', $equipment)->withInput()->withErrors(['error' => 'تعذر تحديث الجهاز بسبب تعارض في البيانات، يرجى التأكد من عدم تكرار الاسم أو الرقم التسلسلي.']);
         }
     }
 

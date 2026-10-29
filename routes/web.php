@@ -34,35 +34,6 @@ Route::get('/migrate-only', function() {
     }
 });
 
-Route::get('/debug-log', function() {
-    $log = storage_path('logs/laravel.log');
-    if (file_exists($log)) {
-        $lines = file($log);
-        return response('<pre>' . htmlspecialchars(implode('', array_slice($lines, -100))) . '</pre>');
-    }
-    return 'No log file found';
-});
-
-Route::get('/test-manual-fail', function() {
-    $v = \Illuminate\Support\Facades\Validator::make(
-        ['serial_number' => 'CT-SIEM-2023-001'],
-        ['serial_number' => 'unique:equipment,serial_number'],
-        ['serial_number.unique' => 'الرقم التسلسلي مكرر']
-    );
-    if ($v->fails()) {
-        return redirect()->route('equipment.create')->withErrors($v)->withInput();
-    }
-    return 'Passed';
-});
-
-Route::get('/test-exception-fail', function(\Illuminate\Http\Request $request) {
-    $request->merge(['serial_number' => 'CT-SIEM-2023-001']);
-    $request->validate(
-        ['serial_number' => 'unique:equipment,serial_number'],
-        ['serial_number.unique' => 'الرقم التسلسلي مكرر']
-    );
-    return 'Passed';
-});
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
