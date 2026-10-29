@@ -26,13 +26,23 @@
         <h4 style="margin-top: 1rem; margin-bottom: 1rem; color: var(--primary-color);">المعلومات الأساسية والتصنيف</h4>
         <div class="grid grid-cols-2">
             <div class="form-group">
-                <label for="name" class="form-label">اسم الجهاز *</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $equipment->name) }}" required>
+                <label for="name" class="form-label">اسم الجهاز * <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">(يجب ألا يتكرر)</span></label>
+                <input type="text" name="name" id="name" class="form-control" style="@error('name') border-color: #dc2626; background-color: #fef2f2; @enderror" value="{{ old('name', $equipment->name) }}" required>
+                @error('name')
+                    <span style="color: #dc2626; font-size: 0.825rem; display: block; margin-top: 0.35rem; font-weight: 600;">
+                        <i class="fa-solid fa-circle-exclamation"></i> {{ $message }}
+                    </span>
+                @enderror
             </div>
             
             <div class="form-group">
-                <label for="serial_number" class="form-label">الرقم التسلسلي *</label>
-                <input type="text" name="serial_number" id="serial_number" class="form-control" value="{{ old('serial_number', $equipment->serial_number) }}" required>
+                <label for="serial_number" class="form-label">الرقم التسلسلي * <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">(يجب ألا يتكرر)</span></label>
+                <input type="text" name="serial_number" id="serial_number" class="form-control" style="@error('serial_number') border-color: #dc2626; background-color: #fef2f2; @enderror" value="{{ old('serial_number', $equipment->serial_number) }}" required>
+                @error('serial_number')
+                    <span style="color: #dc2626; font-size: 0.825rem; display: block; margin-top: 0.35rem; font-weight: 600;">
+                        <i class="fa-solid fa-circle-exclamation"></i> {{ $message }}
+                    </span>
+                @enderror
             </div>
         </div>
 
