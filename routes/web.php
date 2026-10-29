@@ -34,6 +34,15 @@ Route::get('/migrate-only', function() {
     }
 });
 
+Route::get('/debug-log', function() {
+    $log = storage_path('logs/laravel.log');
+    if (file_exists($log)) {
+        $lines = file($log);
+        return response('<pre>' . htmlspecialchars(implode('', array_slice($lines, -100))) . '</pre>');
+    }
+    return 'No log file found';
+});
+
 // Authenticated routes
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
